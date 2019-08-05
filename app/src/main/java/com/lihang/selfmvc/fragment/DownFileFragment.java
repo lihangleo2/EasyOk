@@ -102,27 +102,15 @@ public class DownFileFragment extends BaseFragment implements OnDownloadListener
         switch (v.getId()) {
             case R.id.txt_down:
                 ModelSuperImpl.permission().requestPermission(NORMAL_COMMAND, this, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
-                txt_down.setEnabled(false);
-                txt_resumdown.setEnabled(false);
-                txt_findfile.setEnabled(false);
-                txt_delete.setEnabled(false);
-                txt_cancledown.setEnabled(true);
+                setCancle(true);
                 break;
             case R.id.txt_resumdown:
                 ModelSuperImpl.permission().requestPermission(RESUME_COMMAND, this, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
-                txt_down.setEnabled(false);
-                txt_resumdown.setEnabled(false);
-                txt_findfile.setEnabled(false);
-                txt_delete.setEnabled(false);
-                txt_cancledown.setEnabled(true);
+                setCancle(true);
                 break;
             case R.id.txt_cancledown:
                 EasyOk.getInstance().cancleOkhttpTag("downApk");
-                txt_down.setEnabled(true);
-                txt_resumdown.setEnabled(true);
-                txt_findfile.setEnabled(true);
-                txt_delete.setEnabled(true);
-                txt_cancledown.setEnabled(false);
+                setCancle(false);
                 break;
 
             case R.id.txt_findfile:
@@ -156,11 +144,7 @@ public class DownFileFragment extends BaseFragment implements OnDownloadListener
     @Override
     public void onDownloadSuccess(File file) {
         ToastUtils.showToast("下载成功");
-        txt_down.setEnabled(true);
-        txt_resumdown.setEnabled(true);
-        txt_findfile.setEnabled(true);
-        txt_delete.setEnabled(true);
-        txt_cancledown.setEnabled(false);
+        setCancle(false);
     }
 
     @Override
@@ -222,5 +206,13 @@ public class DownFileFragment extends BaseFragment implements OnDownloadListener
     @Override
     public void permissionFail(int command) {
         ToastUtils.showToast("文件下载，需要此权限");
+    }
+
+    public void setCancle(boolean cancle){
+        txt_down.setEnabled(!cancle);
+        txt_resumdown.setEnabled(!cancle);
+        txt_findfile.setEnabled(!cancle);
+        txt_delete.setEnabled(!cancle);
+        txt_cancledown.setEnabled(cancle);
     }
 }
