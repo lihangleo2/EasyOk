@@ -14,11 +14,11 @@
 [okhttputils : https://github.com/hongyangAndroid/okhttputils](https://github.com/hongyangAndroid/okhttputils) 
 
 ## 友情链接
-ui中再遇到阴影时,跟Ui小姐姐说,阴影部分别担心，有我
+ui中再遇到阴影时,跟Ui小姐姐说,阴影部分别担心，我自己来
 > 阴影布局，不管你是什么控件，放进阴影布局即刻享受你想要的阴影  
 地址：[https://github.com/lihangleo2/ShadowLayout](https://github.com/lihangleo2/ShadowLayout)
 
 有多种效果
-> 一款多效果智能登录按钮 
+> 一款多效果智能登录按钮,也可用于点赞动画等
 地址：[https://github.com/lihangleo2/SmartLoadingView](https://github.com/lihangleo2/SmartLoadingView)
 
