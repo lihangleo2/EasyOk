@@ -177,7 +177,7 @@ public interface OnDownloadListener {
                         
 ```
 
-可能有人发现了url去拿了，外面调用接口，我只传入了参数，把url什么的都封装在了ModelSuperImpl里了。这样的话不同页面请求同一网络请求，你只需要直接调用，传参数即可。
+可能有人发现了url去拿了，外面调用接口，我只传入了参数，把url什么的都封装在了ModelSuperImpl里了。这样的话不同页面请求同一网络请求，你只需要直接调用，传参数即可。最后没考虑到要展示请求效果，所用EventBus直接传值了。要用本库记得把com.lihang.selfmvc.okhttps.builder里的EventBus全部删除 b.b
 #### 看到这里给个star吧,后续出2篇博客
 * okhttp简单封装（基于二次封装）
 * mvc开发
