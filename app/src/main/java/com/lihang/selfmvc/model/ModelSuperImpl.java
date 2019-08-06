@@ -1,23 +1,11 @@
 package com.lihang.selfmvc.model;
 
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Pair;
-
-import com.google.gson.reflect.TypeToken;
-import com.lihang.selfmvc.bean.User;
 import com.lihang.selfmvc.bean.basebean.ParamsBuilder;
-import com.lihang.selfmvc.bean.basebean.ResponModel;
 import com.lihang.selfmvc.common.SystemConst;
 import com.lihang.selfmvc.okhttps.okcallback.OnDownloadListener;
-import com.tbruyelle.rxpermissions2.RxPermissions;
-
 import java.io.File;
 import java.util.ArrayList;
-
-import io.reactivex.functions.Consumer;
 
 /**
  * Created by leo

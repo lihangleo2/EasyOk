@@ -72,7 +72,6 @@ public abstract class ModelBase {
 
                     @Override
                     public void onAfter() {
-                        LogUtils.i("我难道没有走吗", "11111111111");
                         LoadingDialog.getInstance().dismiss();
                     }
 

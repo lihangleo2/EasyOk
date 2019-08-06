@@ -10,9 +10,6 @@ import java.util.HashMap;
 
 public class JSONS {
 
-    /**
-     * 不用写bean对象了
-     */
     public static String login(String userName, String password) {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("userName", userName);

@@ -9,7 +9,6 @@ import com.lihang.selfmvc.okhttps.builder.OkDownloadBuilder;
 import com.lihang.selfmvc.okhttps.builder.OkGetBuilder;
 import com.lihang.selfmvc.okhttps.builder.OkPostBuilder;
 import com.lihang.selfmvc.okhttps.builder.OkUploadBuilder;
-import com.lihang.selfmvc.utils.LogUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -100,9 +99,7 @@ public class EasyOk {
 
     //tag取消网络请求
     public void cancleOkhttpTag(String tag) {
-        LogUtils.i("进行了取消网络", "取消网络请求");
         Dispatcher dispatcher = okHttpClient.dispatcher();
-        LogUtils.i("难道不是同一个", okHttpClient.hashCode() + "==这边的");
         synchronized (dispatcher) {
             //请求列表里的，取消网络请求
             for (Call call : dispatcher.queuedCalls()) {
@@ -112,10 +109,8 @@ public class EasyOk {
             }
             //正在请求网络的，取消网络请求
             for (Call call : dispatcher.runningCalls()) {
-                LogUtils.i("什么情况啊", "取消网络请求==" + call.request().tag());
                 if (tag.equals(call.request().tag())) {
                     call.cancel();
-                    LogUtils.i("进行了取消网络", "执行了取消网络的行动，并且==>" + call.isCanceled());
                 }
             }
         }

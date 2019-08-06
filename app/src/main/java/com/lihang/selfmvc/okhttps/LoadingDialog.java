@@ -2,7 +2,6 @@ package com.lihang.selfmvc.okhttps;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.drawable.AnimationDrawable;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.lihang.selfmvc.R;
 import com.lihang.selfmvc.base.MyApplication;
-import com.lihang.selfmvc.utils.LogUtils;
 
 /**
  * Created by leo
@@ -74,13 +72,11 @@ public class LoadingDialog {
                 dialog = null;
                 txt_message = null;
                 imageView = null;
-                LogUtils.i("我现在只是测试", "出错了==" + e.toString());
                 initDialog(mContext, message);
             }
         } else {
             initDialog(mContext, message);
         }
-        LogUtils.i("我现在只是测试", dialog.hashCode() + "");
     }
 
     private String tagUrl;
@@ -110,13 +106,11 @@ public class LoadingDialog {
                 dialog = null;
                 txt_message = null;
                 imageView = null;
-                LogUtils.i("我现在只是测试", "出错了==" + e.toString());
                 initDialog(mContext, message);
             }
         } else {
             initDialog(mContext, message);
         }
-        LogUtils.i("我现在只是测试", dialog.hashCode() + "");
     }
 
 
@@ -133,9 +127,7 @@ public class LoadingDialog {
     }
 
     public void dismiss() {
-        LogUtils.i("我现在只是测试", "现在消失了");
         if (dialog != null) {
-            LogUtils.i("我现在只是测试", "现在消失了========");
             spinner.stop();
             dialog.dismiss();
         }

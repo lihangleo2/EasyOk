@@ -66,7 +66,6 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         super.onDestroy();
         mUnbinder.unbind();
         //退出一个页面。取消这个页面所有正在进行的网络请求
-        LogUtils.i("我来看看是什么呢",this.getClass().toString());
         EasyOk.getInstance().cancleOkhttpTag(this.getClass().toString());
     }
 
