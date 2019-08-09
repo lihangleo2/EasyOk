@@ -3,8 +3,10 @@ package com.lihang.selfmvc.okhttps.Interceptor;
 import android.text.TextUtils;
 
 import com.lihang.selfmvc.utils.PreferenceUtil;
+
 import java.io.IOException;
 import java.util.List;
+
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -25,7 +27,11 @@ public class NetCacheInterceptor implements Interceptor {
 
     public static NetCacheInterceptor getInstance() {
         if (cacheInterceptor == null) {
-            cacheInterceptor = new NetCacheInterceptor();
+            synchronized (NetCacheInterceptor.class) {
+                if (cacheInterceptor == null) {
+                    cacheInterceptor = new NetCacheInterceptor();
+                }
+            }
         }
         return cacheInterceptor;
     }

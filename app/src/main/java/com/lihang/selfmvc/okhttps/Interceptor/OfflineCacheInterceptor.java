@@ -2,7 +2,9 @@ package com.lihang.selfmvc.okhttps.Interceptor;
 
 import com.lihang.selfmvc.base.MyApplication;
 import com.lihang.selfmvc.utils.networks.NetWorkUtils;
+
 import java.io.IOException;
+
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -26,7 +28,11 @@ public class OfflineCacheInterceptor implements Interceptor {
 
     public static OfflineCacheInterceptor getInstance() {
         if (offlineCacheInterceptor == null) {
-            offlineCacheInterceptor = new OfflineCacheInterceptor();
+            synchronized (OfflineCacheInterceptor.class) {
+                if (offlineCacheInterceptor == null) {
+                    offlineCacheInterceptor = new OfflineCacheInterceptor();
+                }
+            }
         }
         return offlineCacheInterceptor;
     }

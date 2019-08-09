@@ -34,7 +34,11 @@ public class LoadingDialog {
 
     public static LoadingDialog getInstance() {
         if (loadingDialog == null) {
-            loadingDialog = new LoadingDialog();
+            synchronized (LoadingDialog.class) {
+                if (loadingDialog == null) {
+                    loadingDialog = new LoadingDialog();
+                }
+            }
         }
         return loadingDialog;
     }
@@ -114,7 +118,7 @@ public class LoadingDialog {
     }
 
 
-    public void setProgress(String message){
+    public void setProgress(String message) {
         if (dialog != null) {
             if (TextUtils.isEmpty(message)) {
                 txt_message.setText("");

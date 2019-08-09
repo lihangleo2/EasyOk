@@ -3,6 +3,7 @@ package com.lihang.selfmvc.okhttps;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+
 import com.lihang.selfmvc.okhttps.Interceptor.NetCacheInterceptor;
 import com.lihang.selfmvc.okhttps.Interceptor.OfflineCacheInterceptor;
 import com.lihang.selfmvc.okhttps.builder.OkDownloadBuilder;
@@ -29,7 +30,8 @@ import okhttp3.OkHttpClient;
  * 自己写只是加强理解，主要是学习、
  */
 public class EasyOk {
-    private static EasyOk okHttpUtils;
+
+    private static EasyOk easyOk;
     private OkHttpClient okHttpClient;
     //这个handler的作用是把子线程切换主线程。在后面接口中的具体实现，就不需要用handler去回调了
     private Handler mDelivery;
@@ -61,10 +63,14 @@ public class EasyOk {
 
 
     public static EasyOk getInstance() {
-        if (okHttpUtils == null) {
-            okHttpUtils = new EasyOk();
+        if (easyOk == null) {
+            synchronized (EasyOk.class) {
+                if (easyOk == null) {
+                    easyOk = new EasyOk();
+                }
+            }
         }
-        return okHttpUtils;
+        return easyOk;
     }
 
 
