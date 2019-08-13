@@ -7,7 +7,7 @@
 * 支持post请求
 * 支持上传文件 
 * 支持下载文件和断点续传  
-* 有网络时，支持缓存（连接网络时的有效期）
+* 有网络时，支持在线缓存（连接网络时的有效期）
 * 断开网络，支持离线缓存（离线缓存有效期） 
 * 多次请求同一url，在网络还在请求时，是否只请求一次
 * 支持请求失败,自动重连
@@ -32,8 +32,8 @@ ui中再遇到阴影时,跟Ui小姐姐说,阴影部分别担心，我自己来
 |下载文件|
 |![](https://github.com/lihangleo2/EasyOk/blob/master/download.gif)|
 
-本项目做了基于mvc二次封装了，利于开发，可能不利于理解，下面做些简单介绍和用法
-我会倒是用博客把okhttp和mvc封装分开来写（如果你有更好的理解，和更便捷的方式，麻烦告知。谢谢）
+本项目基于mvc进行了二次封装，利于开发，可能不利于理解，下面做些简单介绍和用法
+我已经用博客把okhttp和mvc封装分开来写（如果你有更好的理解，和更便捷的方式，麻烦告知。谢谢）
 
 ## get请求
 ```java
@@ -52,7 +52,7 @@ EasyOk.get().url("http://gank.io/api/xiandu/category/wow")
                 //.onlyOneNet(paramsBuilder.isOnlyOneNet())
                 //默认不重连，设置后，联网失败自动重连次数
                 //.tryAgainCount(paramsBuilder.getTryAgainCount())
-                //这里用抽象类，为了封装项目里ResultCall是接口类。
+                //这里单独拿出来使用要用抽象类ResultMyCall<T>，项目里为了封装用了接口ResultCall
                 //抽象类在这里有很大的好处，你可以把统一操作展示loading和关闭loading放在before和after里。如果不需要重写，甚至都不用实现方法，他会走super里的。
                 .build().enqueue(new ResultMyCall<T>() {
             @Override
@@ -89,12 +89,12 @@ EasyOk.get().url("http://gank.io/api/xiandu/category/wow")
 ## post请求
 post请求其实和get差不多。只不过内部和get区别就在于 mBuilder.post(requestBody);加上这区就是post请求了。还有几点要注意：
 * post有多种requestBody，常用的有 键值对，json。其他的大家可以去上面2个优秀封装中查看
-* 对于okhttp缓存，很明确一般用于不怎么变化的接口。所以post一般不用，本人亲测过后，缓存确实本来就不支持post
+* 对于okhttp缓存方便，很明确一点是：一般用于不怎么变化的接口。所以post一般不用，本人亲测过后，缓存确实本来就不支持post
 
 
 
 ## 上传文件
-这里是简单展示，未封装的是ResultMyCall，封装用到的接口是ResultCall。未封装是抽象类，不实现方法会默认走父类的。大部分和post一样。不同的是有个上传进度inprogress（float progress）;这里只是展示简单使用:
+这里是简单展示，这里单独拿出来请求要使用抽象类ResultMyCall，封装用到的接口是ResultCall。原因是抽象类，不实现方法会默认走父类的。大部分和post一样。不同的是有个上传进度inprogress（float progress）;这里只是展示简单使用:
 ```java
         File file = new File("文件路径");
         Pair<String, File> map = new Pair<>("file", file);
@@ -137,8 +137,8 @@ post请求其实和get差不多。只不过内部和get区别就在于 mBuilder.
 ```java
 ModelSuperImpl.netWork().gankGet(ParamsBuilder.build().params(PARAMS.gank("android"))
                         .command(GANK_COMMAND), this);
-//this是网络请求的回调，你只需要实现NetWorkListener接口，就能拿到网络回调。唯一不同的是这里要解析的类型要通过.type带进去，如果不传那么回到就是
-//string类型。如果传了Object强壮一下就行了。如.type(new TypeToken<ResponModel<User>>() {}.getType()),具体看我博客
+//this是网络请求的回调，你只需要实现NetWorkListener接口，就能拿到网络回调。唯一不同的是这里要解析的类型要通过.type带进去，如果不传那么默认回调类型
+//就是string类型。如果传了类型，在回调里对Object强转一下就行了。如.type(new TypeToken<ResponModel<User>>() {}.getType()),具体看我博客
 //这里把数据解析，网络请求失败，和虽然code=200,但请求接口失败如，关注失败。都封装在ModelBase里。如果不重写会走父类默认方法，要重写具体看博客
 @Override
     public void onNetCallBack(int command, Object object) {
@@ -180,7 +180,7 @@ public interface OnDownloadListener {
                         
 ```
 
-可能有人发现了url去拿了，外面调用接口，我只传入了参数，把url什么的都封装在了ModelSuperImpl里了。这样的话不同页面请求同一网络请求，你只需要直接调用，传参数即可。最后没考虑到要展示请求效果，所用EventBus直接传值了。要用本库记得把com.lihang.selfmvc.okhttps.builder里的EventBus全部删除 b.b
+可能有人发现了url去哪了，外面调用接口，我只传入了参数，把url什么的都封装在了ModelSuperImpl里了。这样的话不同页面请求同一网络请求，你只需要直接调用，传参数即可，而且所有请求网络和网络接口都在ModelSuperImpl里，方便查找。最后没考虑到要展示请求效果，所用EventBus直接传值了。要用本库记得把com.lihang.selfmvc.okhttps.builder里的EventBus全部删除 b.b
 #### 看到这里给个star吧
 
 
